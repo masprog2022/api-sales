@@ -41,6 +41,12 @@
 			<artifactId>dozer-core</artifactId>
 			<version>6.5.2</version>
 		</dependency>
+		<!-- Documentation: O Swagger eh usado junto com um conjunto de ferramentas de software de codigo aberto para projetar, construir, documentar e usar servicos da Web RESTful-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
