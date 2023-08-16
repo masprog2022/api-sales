@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductService {
 
@@ -25,7 +27,9 @@ public class ProductService {
                      .map(product, ProductDto.class))); // converte pag<Product> para pga<pageproductdto>
    }
 
-
-
+    public Optional<ProductDto> findByName(String name){
+        return productRepository.findByName(name)
+                .map(product -> modelMapper.map(product, ProductDto.class));
+    }
 
 }
