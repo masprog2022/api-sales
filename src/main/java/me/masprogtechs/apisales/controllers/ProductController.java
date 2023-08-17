@@ -99,6 +99,7 @@ public class ProductController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
+    @ResponseStatus(HttpStatus.CREATED)
     public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
         return productService.save(productDto);
     }
