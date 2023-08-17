@@ -3,6 +3,7 @@ package me.masprogtechs.apisales.services;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import me.masprogtechs.apisales.domain.entities.Product;
 import me.masprogtechs.apisales.domain.repositories.ProductRepository;
 import me.masprogtechs.apisales.dto.ProductDto;
@@ -72,6 +73,11 @@ public class ProductService {
                .map(product -> modelMapper.map(product, ProductDto.class));
    }
 
+   public void deactivate(@Valid Long id){
+       productRepository.deactivate(id);
+   }
+
+
    @Transactional
    public ProductDto update(long id, ProductDto productDto){
        try {
@@ -83,5 +89,7 @@ public class ProductService {
            throw new ResourceNotFoundException(MensagConstant.PRODUTO_NAO_ENCONTRADO + id);
        }
    }
+
+
 
 }
