@@ -23,6 +23,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByIdAndActive(Long id, Boolean active);
     //Page<Product> findAllByActive(Pageable pageable, boolean active);
 
+    long count();
+    @Query("SELECT COUNT(*) FROM Product WHERE active = true")
+    long countProductActive();
+
      @Modifying(clearAutomatically = true)
      @Transactional
      @Query("UPDATE Product r SET r.active = false WHERE r.id = :productId")

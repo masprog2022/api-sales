@@ -77,6 +77,14 @@ public class ProductService {
        productRepository.deactivate(id);
    }
 
+   public long countProducts(){
+       return productRepository.count();
+   }
+
+   public long countProductActive(){
+       return productRepository.countProductActive();
+   }
+
 
    @Transactional
    public ProductDto update(long id, ProductDto productDto){
