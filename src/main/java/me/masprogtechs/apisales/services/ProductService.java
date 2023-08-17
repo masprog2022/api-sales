@@ -58,6 +58,11 @@ public class ProductService {
                .map(product -> modelMapper.map(product, ProductDto.class));
     }
 
+    public Optional<ProductDto> findByNameAndActive(String name){
+       return productRepository.findByNameAndActive(name, true)
+               .map(product -> modelMapper.map(product, ProductDto.class));
+    }
+
 
 
 }

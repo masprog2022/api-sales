@@ -136,4 +136,23 @@ public class ProductController {
                 .orElseThrow(() -> new ResourceNotFoundException((MensagConstant.PRODUTO_NAO_ENCONTRADO + id)));
         return ResponseEntity.ok().body(productDto);
     }
+
+    @GetMapping("name/active/{name}")
+    @Operation(summary = "Buscar produto activo pelo nome", description = "Buscar produto activo pelo nome",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public ResponseEntity<ProductDto> findByNameAndActive(@PathVariable String name) throws ResourceNotFoundException {
+        ProductDto productDto = productService.findByNameAndActive(name)
+                .orElseThrow(() -> new ResourceNotFoundException((MensagConstant.PRODUTO_NAO_ENCONTRADO + name)));
+        return ResponseEntity.ok().body(productDto);
+    }
 }
