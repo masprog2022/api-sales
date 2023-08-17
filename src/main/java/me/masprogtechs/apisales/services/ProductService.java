@@ -11,7 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -35,6 +37,12 @@ public class ProductService {
        return productDtoPage;
    }
 
+   public List<ProductDto> findAllActive(){
+       return productRepository.findByActive(true).stream()
+               .map(product -> modelMapper.map(product, ProductDto.class))
+               .collect(Collectors.toList());
+   }
+
    public ProductDto save(ProductDto productDto){
        Product product = productRepository.save(modelMapper.map(productDto, Product.class));
        return modelMapper.map(product, ProductDto.class);
@@ -44,5 +52,7 @@ public class ProductService {
         return productRepository.findByName(name)
                 .map(product -> modelMapper.map(product, ProductDto.class));
     }
+
+
 
 }

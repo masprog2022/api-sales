@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/products")
 @Tag(name = "Product", description = "Endpoints para gerenciar produtos")
@@ -97,5 +99,22 @@ public class ProductController {
             })
     public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
         return productService.save(productDto);
+    }
+
+    @GetMapping("all")
+    @Operation(summary = "Listar todos produtos activos", description = "Listar todos produtos activos",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public List<ProductDto> findAllActive(){
+        return productService.findAllActive();
     }
 }
