@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import me.masprogtechs.apisales.dto.ProductDto;
 import me.masprogtechs.apisales.exception.ResourceNotFoundException;
 import me.masprogtechs.apisales.services.ProductService;
@@ -13,6 +14,7 @@ import me.masprogtechs.apisales.util.MensagConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,7 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    @GetMapping
+    /*@GetMapping
     @Operation(summary = "Listar todos os produtos com paginação", description = "Listar todos os produtos com paginação",
             tags = {"Product"},
             responses = {
@@ -42,6 +44,25 @@ public class ProductController {
         return productService.findAllProduct(pageRequest);
 
     }
+  */
+    @GetMapping
+    @Operation(summary = "Listar todos os produtos com paginação", description = "Listar todos os produtos com paginação",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public ResponseEntity<Page<ProductDto>> findAll(Pageable pageable){
+        Page<ProductDto> list = productService.findAllPaged(pageable);
+        return ResponseEntity.ok().body(list);
+    }
+
     @GetMapping("name/{name}")
     @Operation(summary = "Buscar qualquer produto pelo nome", description = "Buscar qualquer produto pelo nome",
             tags = {"Product"},
@@ -60,5 +81,21 @@ public class ProductController {
         ProductDto productDto = productService.findByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException(MensagConstant.PRODUTO_NAO_ENCONTRADO + name));
         return ResponseEntity.ok(productDto);
+    }
+    @PostMapping
+    @Operation(summary = "Salvar um produto", description = "Salvar um produto",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public ProductDto createProduct(@Valid @RequestBody ProductDto productDto){
+        return productService.save(productDto);
     }
 }

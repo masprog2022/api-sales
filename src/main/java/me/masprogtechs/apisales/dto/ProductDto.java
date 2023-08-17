@@ -1,6 +1,8 @@
 package me.masprogtechs.apisales.dto;
 
 
+import me.masprogtechs.apisales.domain.entities.Product;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -14,7 +16,27 @@ public class ProductDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public ProductDto(){}
+    public ProductDto(){
+
+    }
+
+    public ProductDto(Long id, String name, BigDecimal price, Boolean active, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    public ProductDto(Product entity){
+        this.id = entity.getId();
+        this.name = entity.getName();
+        this.price = entity.getPrice();
+        this.active = entity.getActive();
+        this.createdAt = entity.getCreatedAt();
+        this.updatedAt = entity.getUpdateAt();
+    }
 
     public Long getId() {
         return id;
