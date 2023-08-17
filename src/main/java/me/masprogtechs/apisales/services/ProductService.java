@@ -1,16 +1,20 @@
 package me.masprogtechs.apisales.services;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import me.masprogtechs.apisales.domain.entities.Product;
 import me.masprogtechs.apisales.domain.repositories.ProductRepository;
 import me.masprogtechs.apisales.dto.ProductDto;
+import me.masprogtechs.apisales.exception.ResourceNotFoundException;
+import me.masprogtechs.apisales.util.MensagConstant;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -63,6 +67,21 @@ public class ProductService {
                .map(product -> modelMapper.map(product, ProductDto.class));
     }
 
+   public Optional<ProductDto> findById(long id){
+       return productRepository.findById(id)
+               .map(product -> modelMapper.map(product, ProductDto.class));
+   }
 
+   @Transactional
+   public ProductDto update(long id, ProductDto productDto){
+       try {
+             Product entity = productRepository.getOne(id);
+             entity.setName(productDto.getName());
+             entity.setPrice(productDto.getPrice());
+             return new ProductDto(entity);
+       }catch (EntityNotFoundException e){
+           throw new ResourceNotFoundException(MensagConstant.PRODUTO_NAO_ENCONTRADO + id);
+       }
+   }
 
 }

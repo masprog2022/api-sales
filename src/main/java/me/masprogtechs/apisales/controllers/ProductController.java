@@ -155,4 +155,47 @@ public class ProductController {
                 .orElseThrow(() -> new ResourceNotFoundException((MensagConstant.PRODUTO_NAO_ENCONTRADO + name)));
         return ResponseEntity.ok().body(productDto);
     }
+
+
+    @PutMapping("{id}")
+    @Operation(summary = "Actualizar produto", description = "Actualizar produto",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable(value = "id") Long id,
+                                                    @Valid @RequestBody ProductDto productDto) throws ResourceNotFoundException {
+        productService.findById(productDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        MensagConstant.PRODUTO_NAO_ENCONTRADO + productDto.getId()
+                ));
+        return ResponseEntity.ok(productService.save(productDto));
+    }
+/*
+    @PutMapping("{id}")
+    @Operation(summary = "Actualizar produto", description = "Actualizar produto",
+            tags = {"Product"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = ProductDto.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public ResponseEntity<ProductDto> update(@PathVariable @Valid Long id, @RequestBody ProductDto productDto ){
+        productDto = productService.update(id, productDto);
+        return ResponseEntity.ok().body(productDto);
+    }
+    */
+
 }
