@@ -53,6 +53,11 @@ public class ProductService {
                 .map(product -> modelMapper.map(product, ProductDto.class));
     }
 
+    public Optional<ProductDto> findIdAndActive(long id){
+       return productRepository.findByIdAndActive(id, true)
+               .map(product -> modelMapper.map(product, ProductDto.class));
+    }
+
 
 
 }
