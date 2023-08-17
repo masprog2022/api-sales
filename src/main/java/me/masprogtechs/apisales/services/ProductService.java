@@ -85,6 +85,11 @@ public class ProductService {
        return productRepository.countProductActive();
    }
 
+   public void delete(ProductDto productDto){
+       Product product = modelMapper.map(productDto, Product.class);
+       productRepository.delete(product);
+   }
+
 
    @Transactional
    public ProductDto update(long id, ProductDto productDto){
