@@ -25,7 +25,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@Tag(name = "Product", description = "Endpoints para gerenciar produtos")
+@Tag(name = "Produto", description = "Endpoints para gerenciar produtos")
 public class ProductController {
 
     @Autowired
@@ -52,7 +52,7 @@ public class ProductController {
   */
     @GetMapping
     @Operation(summary = "Listar todos os produtos com paginação", description = "Listar todos os produtos com paginação",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -70,7 +70,7 @@ public class ProductController {
 
     @GetMapping("name/{name}")
     @Operation(summary = "Buscar qualquer produto pelo nome", description = "Buscar qualquer produto pelo nome",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -89,7 +89,7 @@ public class ProductController {
     }
     @PostMapping
     @Operation(summary = "Salvar um produto", description = "Salvar um produto",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -107,7 +107,7 @@ public class ProductController {
 
     @GetMapping("all")
     @Operation(summary = "Listar todos produtos activos", description = "Listar todos produtos activos",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -124,7 +124,7 @@ public class ProductController {
 
     @GetMapping("active/{id}")
     @Operation(summary = "Buscar produto activo pelo ID", description = "Buscar produto activo pelo ID",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -143,7 +143,7 @@ public class ProductController {
 
     @GetMapping("name/active/{name}")
     @Operation(summary = "Buscar produto activo pelo nome", description = "Buscar produto activo pelo nome",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -163,7 +163,7 @@ public class ProductController {
 
     @PutMapping("{id}")
     @Operation(summary = "Actualizar produto", description = "Actualizar produto",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -185,7 +185,7 @@ public class ProductController {
 
     @PutMapping("deactivate/{id}")
     @Operation(summary = "Desactivar um produto", description = "Desactivar um produto",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -203,7 +203,7 @@ public class ProductController {
 
     @GetMapping("count")
     @Operation(summary = "Retornar a quantidade de produto", description = "Retornar a quantidade de produto",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -220,7 +220,7 @@ public class ProductController {
 
     @GetMapping("count/active")
     @Operation(summary = "Retornar a quantidade de produto activos", description = "Retornar a quantidade de produto d activos",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
@@ -237,7 +237,7 @@ public class ProductController {
 
     @DeleteMapping("{id}")
     @Operation(summary = "Deletar um produto pelo ID", description = "Deletar um produto pelo ID",
-            tags = {"Product"},
+            tags = {"Produto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))

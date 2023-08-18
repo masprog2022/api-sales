@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/payments")
-@Tag(name = "Payment", description = "Formas de pagamento")
+@Tag(name = "Pagamento", description = "Formas de pagamento")
 public class PaymentController {
     @GetMapping
     @Operation(summary = "Listar formas de pagamento", description = "Listar formas de pagamento",
-            tags = {"Product"},
+            tags = {"Pagamento"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = @Content(schema = @Schema(implementation = ProductDto.class))
