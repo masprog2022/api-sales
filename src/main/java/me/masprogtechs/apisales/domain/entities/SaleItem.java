@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 public class SaleItem {
 
@@ -26,7 +28,11 @@ public class SaleItem {
 
     @Column(nullable = false)
     @NotNull(message = "Subtotal obrigatório")
-    private double subtotal;
+    private BigDecimal subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = "sale_id", nullable = false)
+    private Sale sale;  // Adicione esta associação bidirecional
 
 
 }

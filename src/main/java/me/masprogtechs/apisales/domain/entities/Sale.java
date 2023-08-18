@@ -18,7 +18,7 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 public class Sale implements Serializable {
 
@@ -43,8 +43,7 @@ public class Sale implements Serializable {
     @NotNull(message = "Forma de pagamento obrigatório")
     private PaymentEnum payment;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sale_id")
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<SaleItem> items = new ArrayList<>();
 
     @CreatedDate
